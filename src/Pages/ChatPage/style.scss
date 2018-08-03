@@ -1,0 +1,26 @@
+$border: #e8e8e8;
+
+.chat {
+  background-color: #FFF;
+  margin-top: 100px;
+  border: 1px solid $border;
+  padding: 24px;
+
+  &__messages {
+    overflow: auto;
+    height: 450px;
+  }
+
+  &__sendbox {
+    display: flex;
+
+    &__input {
+      width: 100%;
+      margin-right: 5px;
+    }
+  }
+
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+}
