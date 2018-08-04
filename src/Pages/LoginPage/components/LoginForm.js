@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Icon, Input, Button } from "antd";
+import escapeHtml from "escape-html";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -8,15 +9,11 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    this.props.form.validateFields();
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onLogin(values.userName);
+        this.props.onLogin(escapeHtml(values.userName));
       }
     });
   }
@@ -38,7 +35,14 @@ class LoginForm extends React.Component {
           help={userNameError || ""}
         >
           {getFieldDecorator("userName", {
-            rules: [{ required: true, message: "Please input your username!" }]
+            rules: [
+              { required: true, message: "Please input your username!" },
+              {
+                pattern: /^\S{2,20}$/,
+                message:
+                  "Username must be between 2 and 20 characters without spaces!"
+              }
+            ]
           })(
             <Input
               size="large"
@@ -53,10 +57,10 @@ class LoginForm extends React.Component {
             htmlType="submit"
             disabled={isJoinButtonDisabled}
             size="large"
-            icon="login"
+            icon={this.props.connecting ? "loading" : "login"}
             className="login__join"
           >
-            Join
+            {this.props.connecting ? "Connecting" : "Join"}
           </Button>
         </Form.Item>
       </Form>

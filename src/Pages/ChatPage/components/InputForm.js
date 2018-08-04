@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
+import escapeHtml from "escape-html";
 
 class InputForm extends React.Component {
   constructor(props) {
@@ -7,27 +8,34 @@ class InputForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
-    this.props.form.validateFields();
-  }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         if (values.message) {
-          this.props.onSend(values.message);
+          this.props.onSend(escapeHtml(values.message));
+          this.props.form.resetFields();
         }
       }
     });
   }
   render() {
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator, getFieldError, getFieldValue } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="chat__sendbox">
-        <Form.Item validateStatus="" help="" className="chat__sendbox__input">
+        <Form.Item
+          validateStatus={getFieldError("message") ? "error" : ""}
+          help={getFieldError("message") || ""}
+          className="chat__sendbox__input"
+        >
           {getFieldDecorator("message", {
-            rules: [{ required: true, message: "Please input the message!" }]
+            rules: [
+              {
+                max: 1000,
+                message: "Message too long, maximum allowed is 1000 characters!"
+              }
+            ]
           })(<Input size="large" placeholder="Message" />)}
         </Form.Item>
         <Form.Item>

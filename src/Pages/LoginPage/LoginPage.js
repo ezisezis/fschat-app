@@ -2,32 +2,25 @@ import React from "react";
 import { Card, Col, Row } from "antd";
 import LoginForm from "./components/LoginForm";
 
-const CardHeader = () => <h1 className="login__header">FSchat</h1>;
+const CardHeader = () => (
+  <div>
+    <h1 className="login__title">FSchat</h1>
+    <p className="login__subtitle">A basic chat application</p>
+  </div>
+);
 
-class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loggedIn: false,
-      loading: false,
-      socket: null
-    };
-  }
-
-  render() {
-    return (
-      <Row type="flex" justify="space-around" align="bottom">
-        <Col lg={8} md={8} sm={4} xs={1} />
-        <Col lg={8} md={8} sm={16} xs={22}>
-          <Card title={<CardHeader />} className="login" bordered>
-            <LoginForm onLogin={this.props.onLogin} />
-          </Card>
-        </Col>
-        <Col lg={8} md={8} sm={4} xs={1} />
-      </Row>
-    );
-  }
-}
+const LoginPage = props => {
+  return (
+    <Row type="flex" justify="space-around" align="bottom">
+      <Col lg={7} md={3} sm={2} xs={1} />
+      <Col lg={10} md={18} sm={20} xs={22}>
+        <Card title={<CardHeader />} className="login" bordered>
+          <LoginForm {...props} />
+        </Card>
+      </Col>
+      <Col lg={7} md={3} sm={2} xs={1} />
+    </Row>
+  );
+};
 
 export default LoginPage;

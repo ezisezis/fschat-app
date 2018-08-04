@@ -1,24 +1,11 @@
 import React from "react";
-import { List } from "antd";
 import InputForm from "./InputForm";
+import MessageList from "./MessageList";
 
 const MessageBoard = ({ messages, onSend }) => {
   return (
     <div className="chat">
-      <div className="chat__messages">
-        <List
-          itemLayout="horizontal"
-          dataSource={messages}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                title={item.username}
-                description={item.message}
-              />
-            </List.Item>
-          )}
-        />
-      </div>
+      <MessageList messages={messages} />
       <InputForm onSend={onSend} />
     </div>
   );

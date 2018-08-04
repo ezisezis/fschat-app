@@ -5,17 +5,29 @@ class Socket {
     this.io = io("http://localhost:8080", {
       query: {
         username
-      }
+      },
+      autoConnect: false,
+      reconnection: false,
+      timeout: 10000
     });
   }
 
-  registerMessageHandler(messageReceiver) {
-    this.io.on("userHasJoined", messageReceiver);
+  registerConnectionHandlers(
+    connectedHandler,
+    disconnectedHandler,
+    failureHandler,
+    connectionErrorHandler,
+    kickedHandler
+  ) {
+    this.io.open();
+    this.io.on("connect_success", connectedHandler);
+    this.io.on("disconnect", disconnectedHandler);
+    this.io.on("connect_failed", failureHandler);
+    this.io.on("connect_error", connectionErrorHandler);
+    this.io.on("connect_timeout", connectionErrorHandler);
+    this.io.on("kicked_inactive", kickedHandler);
   }
 
-  unregisterMessageHandler() {
-    this.io.off("message");
-  }
   // function unregisterHandler() {
   //   socket.off('message')
   // }

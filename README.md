@@ -3,9 +3,16 @@ Frontend for a chat application based on socket.io
 
 ## Installation
 
+Assumptions
+inactivity means last sent message
+
 ## Future work
  - Add auth (password, save users in backend)
  - WSS
  - Who's typing
- - Escape (both username and message fields)
- - Username validation (can't have reserved names)
+ - Update components only when needed
+ - Limit message length
+ - Error handling
+ - Use redis for caching
+ - Unregister handlers
+
