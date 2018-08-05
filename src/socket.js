@@ -37,13 +37,8 @@ class Socket {
     this.io.on("user_joined", userJoinedHandler);
   }
 
-  unregisterChatHandlers() {
-    this.io.removeAllListeners("message");
-    this.io.removeAllListeners("user_joined");
-  }
-
   disconnectFromSocket() {
-    this.io.disconnect(true);
+    this.io.disconnect();
   }
 
   sendMessage(message) {

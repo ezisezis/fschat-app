@@ -57,10 +57,6 @@ class ChatPage extends React.Component {
     this.props.socket.disconnectFromSocket();
   }
 
-  componentWillUnmount() {
-    this.props.socket.unregisterChatHandlers();
-  }
-
   render() {
     return (
       <Row type="flex" justify="space-around" align="bottom">

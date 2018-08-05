@@ -14,7 +14,7 @@ or with npm:
 ```
 npm install
 ```
-To run the app, just do:
+To run the app, just do (by default, runs on http://localhost:3000):
 ```
 yarn start
 ```
@@ -22,7 +22,7 @@ Or if you want to build it instead, do:
 ```
 yarn build
 ```
-And to serve the built version, do:
+And to serve the built version, do (by default, runs on http://localhost:3000):
 ```
 yarn serve
 ```

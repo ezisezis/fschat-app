@@ -1,7 +1,6 @@
 import React from "react";
 import { message } from "antd";
 
-import "./App.css";
 import LoginPage from "./Pages/LoginPage";
 import ChatPage from "./Pages/ChatPage";
 import Socket from "./socket";
@@ -65,24 +64,7 @@ class App extends React.Component {
       connecting: false,
       connected: false
     });
-    let messageText = "Failed connection attempt. Unknown server error.";
-    switch (reason) {
-      case "INVALID_USERNAME":
-        messageText = "Failed connection attempt. Invalid username.";
-        break;
-      case "NO_USERNAME":
-        messageText = "Failed connection attempt. No username provided.";
-        break;
-      case "ID_TAKEN":
-        messageText = "Failed connection attempt. Socket ID taken.";
-        break;
-      case "USERNAME_TAKEN":
-        messageText = "Failed connection attempt. Username already taken.";
-        break;
-      default:
-        break;
-    }
-    message.error(messageText);
+    message.error(reason);
   }
 
   onKicked() {
