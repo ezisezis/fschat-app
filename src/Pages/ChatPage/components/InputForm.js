@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import escapeHtml from "escape-html";
+import configuration from "../../../configuration";
 
 class InputForm extends React.Component {
   constructor(props) {
@@ -32,8 +33,10 @@ class InputForm extends React.Component {
           {getFieldDecorator("message", {
             rules: [
               {
-                max: 1000,
-                message: "Message too long, maximum allowed is 1000 characters!"
+                max: configuration.maximumMessageLength,
+                message: `Message too long, maximum allowed is ${
+                  configuration.maximumMessageLength
+                } characters!`
               }
             ]
           })(<Input size="large" placeholder="Message" />)}

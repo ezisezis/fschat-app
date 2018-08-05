@@ -16,7 +16,6 @@ class App extends React.Component {
       username: null
     };
 
-    this.socket = null;
     this.onLogin = this.onLogin.bind(this);
     this.onSocketConnected = this.onSocketConnected.bind(this);
     this.onSocketDisconnected = this.onSocketDisconnected.bind(this);

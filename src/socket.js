@@ -1,15 +1,19 @@
 import io from "socket.io-client";
+import configuration from "./configuration";
 
 class Socket {
   constructor(username) {
-    this.io = io("http://localhost:8080", {
-      query: {
-        username
-      },
-      autoConnect: false,
-      reconnection: false,
-      timeout: 10000
-    });
+    this.io = io(
+      `http://${configuration.socket.host}:${configuration.socket.port}`,
+      {
+        query: {
+          username
+        },
+        autoConnect: configuration.socket.autoConnect,
+        reconnection: configuration.socket.reconnection,
+        timeout: configuration.socket.timeout
+      }
+    );
   }
 
   registerConnectionHandlers(
@@ -28,9 +32,23 @@ class Socket {
     this.io.on("kicked_inactive", kickedHandler);
   }
 
-  // function unregisterHandler() {
-  //   socket.off('message')
-  // }
+  registerChatHandlers(messageHandler, userJoinedHandler) {
+    this.io.on("message", messageHandler);
+    this.io.on("user_joined", userJoinedHandler);
+  }
+
+  unregisterChatHandlers() {
+    this.io.removeAllListeners("message");
+    this.io.removeAllListeners("user_joined");
+  }
+
+  disconnectFromSocket() {
+    this.io.disconnect(true);
+  }
+
+  sendMessage(message) {
+    this.io.emit("message", message);
+  }
 }
 
 export default Socket;
